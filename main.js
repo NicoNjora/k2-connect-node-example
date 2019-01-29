@@ -7,8 +7,7 @@ const port = 8000
 
 require('dotenv').load();
 
-//ApiKey
-// const options =  process.env.K2_API_KEY;
+//api key is secret
 
 const options = {
   apiKey: process.env.K2_API_KEY,
@@ -35,7 +34,7 @@ app.post('/webhook', function(req, res, next){
   resource = Webhooks.buygoodsReceived(req,res);
 })
 
-  /* GET home page. */
+/* GET home page. */
 app.get('/', function(req, res, next) {
   res.render('index', res.locals.commonData);
 });
@@ -66,7 +65,7 @@ const subscribeOptions = {
 }
 
 // Send message and capture the response or error
-Webhooks.send(subscribeOptions)
+Webhooks.subscribe(subscribeOptions)
         .then( response => {
             console.log(response);
         })
@@ -74,7 +73,7 @@ Webhooks.send(subscribeOptions)
             console.log(error);
         });
 
-        
+
 app.listen(port, () => {
    console.log(`App running on port ${port}.`)
 })
