@@ -9,22 +9,70 @@ const options = {
 //Including the kopokopo module
 var k2 = require("/home/k2-engineering-01/Desktop/repos/k2_connect_nodejs/index")(options);
 var Webhooks = k2.Webhooks;
-var resource;
+var tokens = k2.Tokens;
+var buyGoodsResource;
+var customerResource;
 var token_details;
 
+// tokens.oauth()
+//     .then(response => {
+//         token_details = response;
+//     })
+//     .catch( error => {
+//         console.log(error);
+//     });       
+
+
 router.post('/', function(req, res, next){
-    resource = Webhooks.buygoodsReceived(req,res);
+    // resource = Webhooks.buygoodsReceived(req,res);
+
+    // Send message and capture the response or error
+    Webhooks.webhookHandler(req, res)
+        .then( response => {
+            buyGoodsResource = response
+        })
+        .catch( error => {
+            console.log(error);
+        });
 })
 
-router.get('/resource', function(req, res, next) {
+router.post('/customercreated', function(req, res, next){
+    // resource = Webhooks.buygoodsReceived(req,res);
+  
+    // Send message and capture the response or error
+    Webhooks.webhookHandler(req, res)
+        .then( response => {
+            customerResource = response
+        })
+        .catch( error => {
+            console.log(error);
+        });
+})
+
+router.get('/customerresource', function(req, res, next) {
+
+    let resource =  customerResource;
 
     if (resource != null){
-      res.render('resource', {origination_time: resource._origination_time, 
-                              sender_msisdn: resource._sender_msisdn,
-                              amount: resource._amount,
-                              currency: resource._currency,
-                              till_number: resource._till_number,
-                              name: resource.name,
+      res.render('customerresource', {sender_msisdn: resource.msisdn,
+                                    name: resource.first_name
+                                    } );
+    }else{
+      console.log("Resource not yet created")
+      res.render('customerresource', {error: "Resource not yet created"} );
+    }  
+});
+
+router.get('/resource', function(req, res, next) {
+    let resource =  buyGoodsResource;
+
+    if (resource != null){
+      res.render('resource', {origination_time: resource.origination_time, 
+                              sender_msisdn: resource.sender_msisdn,
+                              amount: resource.amount,
+                              currency: resource.currency,
+                              till_number: resource.till_number,
+                              name: resource.sender_first_name,
                               status: resource.status,
                               system: resource.system
                               } );
@@ -37,6 +85,7 @@ router.get('/resource', function(req, res, next) {
 router.get('/subscribe',function(req, res, next) {
     res.render('subscribe', res.locals.commonData);
 });
+
   
 router.post('/subscribe', function(req, res, next){
 

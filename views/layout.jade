@@ -10,46 +10,46 @@ html
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css')   
    
     body
-        .container
-            .row
-                h1.col-sm-10= title
-                nav.navbar.navbar-expand-lg.navbar-light.bg-light
-                    a.navbar-brand(href='/') Example APP
-                    button.navbar-toggler(data-toggle="collapse" data-target="#navbarSupportedContent")
-                    .collapse.navbar-collapse#navbarSupportedContent
-                        ul.nav.navbar-nav
-                            li.nav-item(role='presentation')
-                                a.nav-link(href='/') Home
-                            li.nav-item.dropdown(role='presentation')
-                                a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")  Webhooks
-                                    b.caret
-                                ul.dropdown-menu(aria-labelledby="navbarDropdown")
-                                    a.dropdown-item(href='/webhook/subscribe') Webhook Subscription
-                                    a.dropdown-item(href='/webhook/resource') Buy Goods Received Resource
-                                    a.dropdown-item(href='#') Buy Goods Reversed Resource
-                                    a.dropdown-item(href='#') Customer Resource
-                            li.nav-item.dropdown(role='presentation')
-                                a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Mpesa Payments
-                                    b.caret
-                                ul.dropdown-menu(aria-labelledby="navbarDropdown")
-                                    a.dropdown-item(href='/stk') STK Push
-                                    a.dropdown-item(href='/stk/receive') Process Payment Request Result
-                                    a.dropdown-item(href='/stk/paymentstatus') Query Payment Status
-                            li.nav-item.dropdown(role='presentation')
-                                a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   PAY
-                                    b.caret
-                                ul.dropdown-menu(aria-labelledby="navbarDropdown")
-                                    a.dropdown-item(href='/pay/payrecipients') Adding PAY recipients
-                                    a.dropdown-item(href='/pay/createpayment') Create a Payment
-                                    a.dropdown-item(href='/pay/processpayment') Process Payment Result Query 
-                                    a.dropdown-item(href='/pay/paymentstatus') Payment status
-                            li.nav-item.dropdown(role='presentation')
-                                a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Settlement
-                                    b.caret
-                                ul.dropdown-menu(aria-labelledby="navbarDropdown")
-                                    a.dropdown-item(href='/transfer/blindtransfer') Create a 'blind' transfer
-                                    a.dropdown-item(href='/transfer/targetedtransfer') Create a 'targeted' transfer
-                                    a.dropdown-item(href='/transfer/settlementstatus') Query Transfer status
+        
+        header
+            nav.navbar.navbar-expand-lg.navbar-light.bg-light
+                a.navbar-brand(href='/') Example APP
+                button.navbar-toggler(data-toggle="collapse" data-target="#navbarSupportedContent")
+                .collapse.navbar-collapse#navbarSupportedContent
+                    ul.nav.navbar-nav
+                        li.nav-item(role='presentation')
+                            a.nav-link(href='/') Home
+                        li.nav-item.dropdown(role='presentation')
+                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")  Webhooks
+                                b.caret
+                            ul.dropdown-menu(aria-labelledby="navbarDropdown")
+                                a.dropdown-item(href='/webhook/subscribe') Webhook Subscription
+                                a.dropdown-item(href='/webhook/resource') Buy Goods Received Resource
+                                a.dropdown-item(href='#') Buy Goods Reversed Resource
+                                a.dropdown-item(href='/webhook/customerresource') Customer Resource
+                        li.nav-item.dropdown(role='presentation')
+                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Mpesa Payments
+                                b.caret
+                            ul.dropdown-menu(aria-labelledby="navbarDropdown")
+                                a.dropdown-item(href='/stk') STK Push
+                                a.dropdown-item(href='/stk/receive') Process Payment Request Result
+                                a.dropdown-item(href='/stk/paymentstatus') Query Payment Status
+                        li.nav-item.dropdown(role='presentation')
+                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   PAY
+                                b.caret
+                            ul.dropdown-menu(aria-labelledby="navbarDropdown")
+                                a.dropdown-item(href='/pay/payrecipients') Adding PAY recipients
+                                a.dropdown-item(href='/pay/createpayment') Create a Payment
+                                a.dropdown-item(href='/pay/processpayment') Process Payment Result Query 
+                                a.dropdown-item(href='/pay/paymentstatus') Payment status
+                        li.nav-item.dropdown(role='presentation')
+                            a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Settlement
+                                b.caret
+                            ul.dropdown-menu(aria-labelledby="navbarDropdown")
+                                a.dropdown-item(href='/transfer/blindtransfer') Create a 'blind' transfer
+                                a.dropdown-item(href='/transfer/targetedtransfer') Create a 'targeted' transfer
+                                a.dropdown-item(href='/transfer/settlementstatus') Query Transfer status
                             
+        .d-flex.align-items-xl-center.flex-column
             block content
        

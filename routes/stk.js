@@ -19,6 +19,8 @@ router.get('/receive', function(req, res, next){
   res.render('stkreceive', res.locals.commonData)
 });
 
+
+
 router.post('/receive',function(req, res, next){
 
   var stkOptions = {
@@ -42,18 +44,15 @@ router.post('/receive',function(req, res, next){
     },
     _links: {
       //This is where once the request is completed kopokopo will post the response
-      call_back_url: 'https://call_back_to_your_app.your_application.com'
+      call_back_url: 'http://localhost:8000/stk/requestresponse'
     }
   };
   
   // Send message and capture the response or error
   
-  STK.recieve(stkOptions)
-    .then( response => {
-      console.log(response);
-      
-      var location = res.headers.get('location'); 
-      return res.render('subscribe', {message: location})
+  STK.receive(stkOptions)
+    .then( response => {     
+      return res.render('stkreceive', {message: "STK push request sent successfully payment request url is: "+response.location})
     })
     .catch( error => {
       console.log(error);
