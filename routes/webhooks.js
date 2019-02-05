@@ -9,25 +9,28 @@ const options = {
 //Including the kopokopo module
 var k2 = require("/home/k2-engineering-01/Desktop/repos/k2_connect_nodejs/index")(options);
 var Webhooks = k2.Webhooks;
-var tokens = k2.Tokens;
+var tokens = k2.TokenService;
 var buyGoodsResource;
 var customerResource;
+var reversalResource;
 var token_details;
 
-// tokens.oauth()
-//     .then(response => {
-//         token_details = response;
-//     })
-//     .catch( error => {
-//         console.log(error);
-//     });       
+tokens
+    .getTokens()
+    .then(response => {
+        token_details = response;
+    })
+    .catch( error => {
+        console.log(error);
+    });       
 
 
 router.post('/', function(req, res, next){
     // resource = Webhooks.buygoodsReceived(req,res);
 
     // Send message and capture the response or error
-    Webhooks.webhookHandler(req, res)
+    Webhooks
+        .webhookHandler(req, res)
         .then( response => {
             buyGoodsResource = response
         })
@@ -36,13 +39,24 @@ router.post('/', function(req, res, next){
         });
 })
 
-router.post('/customercreated', function(req, res, next){
-    // resource = Webhooks.buygoodsReceived(req,res);
-  
+router.post('/customercreated', function(req, res, next){  
     // Send message and capture the response or error
-    Webhooks.webhookHandler(req, res)
+    Webhooks
+        .webhookHandler(req, res)
         .then( response => {
             customerResource = response
+        })
+        .catch( error => {
+            console.log(error);
+        });
+})
+
+router.post('/transactionreversed', function(req, res, next){  
+    // Send message and capture the response or error
+    Webhooks
+        .webhookHandler(req, res)
+        .then( response => {
+            reversalResource = response
         })
         .catch( error => {
             console.log(error);
@@ -60,6 +74,26 @@ router.get('/customerresource', function(req, res, next) {
     }else{
       console.log("Resource not yet created")
       res.render('customerresource', {error: "Resource not yet created"} );
+    }  
+});
+
+router.get('/reversalresource', function(req, res, next) {
+
+    let resource =  reversalResource;
+
+    if (resource != null){
+      res.render('reversalresource', {  origination_time: resource.origination_time, 
+                                        sender_msisdn: resource.sender_msisdn,
+                                        amount: resource.amount,
+                                        currency: resource.currency,
+                                        till_number: resource.till_number,
+                                        name: resource.sender_first_name,
+                                        status: resource.status,
+                                        system: resource.system
+                                        });
+    }else{
+      console.log("Resource not yet created")
+      res.render('reversalresource', {error: "Resource not yet created"} );
     }  
 });
 
@@ -97,13 +131,15 @@ router.post('/subscribe', function(req, res, next){
     }
 
     // Send message and capture the response or error
-    Webhooks.subscribe(subscribeOptions)
+    Webhooks
+        .subscribe(subscribeOptions)
         .then( response => {
             console.log(response);
             return res.render('subscribe', {message: "Subscribe successful"})
         })
         .catch( error => {
             console.log(error);
+            return res.render('subscribe', {message: error.error.message})
         });
       
 })

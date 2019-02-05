@@ -4,7 +4,10 @@ block content
     br
     br
     p !{message}
+    p !{statusCode}
     .container
+        .title.h3 Subscribe to a webhook
+        br
         form#bulkSmsForm(action="/webhook/subscribe", method="post")
             .form-group.row
                 label.col-sm-2.col-form-label(for="event_type") Event Type

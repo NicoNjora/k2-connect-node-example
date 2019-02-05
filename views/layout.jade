@@ -25,14 +25,14 @@ html
                             ul.dropdown-menu(aria-labelledby="navbarDropdown")
                                 a.dropdown-item(href='/webhook/subscribe') Webhook Subscription
                                 a.dropdown-item(href='/webhook/resource') Buy Goods Received Resource
-                                a.dropdown-item(href='#') Buy Goods Reversed Resource
+                                a.dropdown-item(href='/webhook/reversalresource') Buy Goods Reversed Resource
                                 a.dropdown-item(href='/webhook/customerresource') Customer Resource
                         li.nav-item.dropdown(role='presentation')
                             a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Mpesa Payments
                                 b.caret
                             ul.dropdown-menu(aria-labelledby="navbarDropdown")
                                 a.dropdown-item(href='/stk') STK Push
-                                a.dropdown-item(href='/stk/receive') Process Payment Request Result
+                                a.dropdown-item(href='/stk/result') Process Payment Request Result
                                 a.dropdown-item(href='/stk/paymentstatus') Query Payment Status
                         li.nav-item.dropdown(role='presentation')
                             a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   PAY

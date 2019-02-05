@@ -1,13 +1,13 @@
 extends layout
 
 block content
-    br
-    h5 Work in progress....check in later
 
     br
 
     p !{message}
     .container
+        .title.h3 Initialise a safaricom STK push request
+        br
         form(action="/stk/receive", method="post")
             .form-group.row
                 label.col-sm-2.col-form-label First Name
