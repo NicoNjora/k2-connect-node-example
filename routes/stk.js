@@ -10,13 +10,26 @@ const options = {
 
 //Including the kopokopo module
 var k2 = require("/home/k2-engineering-01/Desktop/repos/k2_connect_nodejs/index")(options);
-var STK = k2.STK;
+var StkService = k2.StkService;
 var Webhooks = k2.Webhooks;
+
+//Put in another file and import when needed
+var tokens = k2.TokenService;
+var token_details;
+tokens
+    .getTokens()
+    .then(response => {
+        //Developer can decide to store the token_details and track expiry
+        token_details = response;
+    })
+    .catch( error => {
+        console.log(error);
+    }); 
 
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('stkreceive', res.locals.commonData);
+  res.render('stkrequest', res.locals.commonData);
 });
 
 router.post('/result', function(req, res, next){  
@@ -50,9 +63,6 @@ router.get('/result', function(req, res, next) {
   }  
 });
 
-
-
-
 router.post('/receive',function(req, res, next){
 
   var stkOptions = {
@@ -77,19 +87,31 @@ router.post('/receive',function(req, res, next){
     _links: {
       //This is where once the request is completed kopokopo will post the response
       call_back_url: 'http://localhost:8000/stk/requestresponse'
-    }
+    },
+    token_details: token_details
   };
   
   // Send message and capture the response or error
-  
-  STK
+  StkService
     .receive(stkOptions)
     .then( response => {     
-      return res.render('stkreceive', {message: "STK push request sent successfully payment request url is: " + response.location})
+      return res.render('stkrequest', {message: "STK push request sent successfully payment request url is: " + response})
     })
     .catch( error => {
       console.log(error);
     });
+})
+
+router.get('/status', function(req, res, next){
+  StkService
+      .paymentRequestStatus({token_details: token_details})
+      .then( response =>{
+          return res.render('stkstatus', {message: "STK status is: "+response})
+      })
+      .catch( error => {
+          console.log(error);
+          return res.render('stkstatus', {message: "Error: " + error})
+      });
 })
 
 module.exports = router;

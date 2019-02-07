@@ -11,6 +11,8 @@ require('dotenv').load();
 const indexRoutes = require('./routes/index');
 const webhooksRoutes = require('./routes/webhooks');
 const stkRoutes = require('./routes/stk');
+const payRoutes = require('./routes/pay');
+const transferRoutes = require('./routes/transfer');
 
 app.use(bodyParser.json())
 app.use(
@@ -24,6 +26,9 @@ app.set('view engine', 'jade');
 app.use('/', indexRoutes);
 app.use('/webhook', webhooksRoutes);
 app.use('/stk', stkRoutes);
+app.use('/pay', payRoutes);
+app.use('/transfer', transferRoutes);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

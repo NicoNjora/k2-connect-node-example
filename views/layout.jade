@@ -33,22 +33,20 @@ html
                             ul.dropdown-menu(aria-labelledby="navbarDropdown")
                                 a.dropdown-item(href='/stk') STK Push
                                 a.dropdown-item(href='/stk/result') Process Payment Request Result
-                                a.dropdown-item(href='/stk/paymentstatus') Query Payment Status
+                                a.dropdown-item(href='/stk/status') Query Payment Status
                         li.nav-item.dropdown(role='presentation')
                             a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   PAY
                                 b.caret
                             ul.dropdown-menu(aria-labelledby="navbarDropdown")
-                                a.dropdown-item(href='/pay/payrecipients') Adding PAY recipients
-                                a.dropdown-item(href='/pay/createpayment') Create a Payment
-                                a.dropdown-item(href='/pay/processpayment') Process Payment Result Query 
-                                a.dropdown-item(href='/pay/paymentstatus') Payment status
+                                a.dropdown-item(href='/pay') Create a Payment
+                                a.dropdown-item(href='/pay/recipients') Adding PAY recipients 
+                                a.dropdown-item(href='/pay/status') Payment status
                         li.nav-item.dropdown(role='presentation')
                             a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href=true,data-toggle="dropdown",aria-haspopup="true", aria-expanded="false")   Settlement
                                 b.caret
                             ul.dropdown-menu(aria-labelledby="navbarDropdown")
-                                a.dropdown-item(href='/transfer/blindtransfer') Create a 'blind' transfer
-                                a.dropdown-item(href='/transfer/targetedtransfer') Create a 'targeted' transfer
-                                a.dropdown-item(href='/transfer/settlementstatus') Query Transfer status
+                                a.dropdown-item(href='/transfer') Create a transfer
+                                a.dropdown-item(href='/transfer/status') Query Transfer status
                             
         .d-flex.align-items-xl-center.flex-column
             block content

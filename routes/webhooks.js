@@ -15,9 +15,11 @@ var customerResource;
 var reversalResource;
 var token_details;
 
+
 tokens
     .getTokens()
     .then(response => {
+        //Developer can decide to store the token_details and track expiry
         token_details = response;
     })
     .catch( error => {
@@ -135,7 +137,7 @@ router.post('/subscribe', function(req, res, next){
         .subscribe(subscribeOptions)
         .then( response => {
             console.log(response);
-            return res.render('subscribe', {message: "Subscribe successful"})
+            return res.render('subscribe', {message: "Subscribe successful resource id is: "+response.resourceId})
         })
         .catch( error => {
             console.log(error);
