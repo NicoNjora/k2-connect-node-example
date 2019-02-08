@@ -38,9 +38,7 @@ router.post('/',function(req, res, next){
           customer_id: '8675309',
           notes: 'Salary payment for May 2018'
         },
-        _links: {
-          callback_url: 'https://your-call-bak.yourapplication.com/payment_result'
-        },
+        callback_url: 'https://your-call-bak.yourapplication.com/payment_result',   
         token_details: token_details
       };
 
@@ -64,13 +62,11 @@ router.get('/recipients', function(req, res, next) {
 router.post('/recipients', function(req, res, next){
     var recipientOpts = {
         type: 'mobile_wallet',
-        pay_recipient: {
-          firstName: req.body.first_name,
-          lastName: req.body.last_name,
-          email: req.body.email,
-          phone: req.body.phone,
-          network: 'Safaricom'
-        },
+        firstName: req.body.first_name,
+        lastName: req.body.last_name,
+        email: req.body.email,
+        phone: req.body.phone,
+        network: 'Safaricom',
         token_details: token_details
     };
 

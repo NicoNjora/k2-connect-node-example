@@ -16,6 +16,7 @@ var Webhooks = k2.Webhooks;
 //Put in another file and import when needed
 var tokens = k2.TokenService;
 var token_details;
+
 tokens
     .getTokens()
     .then(response => {
@@ -66,14 +67,11 @@ router.get('/result', function(req, res, next) {
 router.post('/receive',function(req, res, next){
 
   var stkOptions = {
-    payment_channel: 'M-PESA',
     till_identifier: process.env.K2_TILL_NUMBER,
-    subscriber: {
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      phone: req.body.phone,
-      email: req.body.email
-    },
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    phone: req.body.phone,
+    email: req.body.email,
     amount: {
       currency: 'KES',
       value: req.body.amount 
@@ -84,21 +82,23 @@ router.post('/receive',function(req, res, next){
       reference: '123456',
       notes: 'Payment for invoice 123456'
     },
-    _links: {
       //This is where once the request is completed kopokopo will post the response
-      call_back_url: 'http://localhost:8000/stk/requestresponse'
-    },
+    call_back_url: 'http://localhost:8000/stk/requestresponse', 
+
     token_details: token_details
   };
+  console.log(token_details)
   
   // Send message and capture the response or error
   StkService
-    .receive(stkOptions)
+    .paymentRequest(stkOptions)
     .then( response => {     
       return res.render('stkrequest', {message: "STK push request sent successfully payment request url is: " + response})
     })
     .catch( error => {
       console.log(error);
+      return res.render('stkrequest', {message: "Error " + error})
+
     });
 })
 

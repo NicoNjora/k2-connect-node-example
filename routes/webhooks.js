@@ -131,6 +131,7 @@ router.post('/subscribe', function(req, res, next){
         webhook_secret: process.env.BUYGOODS_WEBHOOK_SECRET,
         token_details: token_details
     }
+    console.log("I am token details access token: "+ token_details.access_token)
 
     // Send message and capture the response or error
     Webhooks
