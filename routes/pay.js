@@ -7,11 +7,11 @@ const options = {
 };
 
 //Including the kopokopo module
-var k2 = require("/home/k2-engineering-01/Desktop/repos/k2_connect_nodejs/index")(options);
-var PayService = k2.PayService;
+var K2 = require("/home/k2-engineering-01/Desktop/repos/k2_connect_nodejs/index")(options);
+var PayService = K2.PayService;
 
 //Put in another file and import when needed
-var tokens = k2.TokenService;
+var tokens = K2.TokenService;
 var token_details;
 tokens
     .getTokens()

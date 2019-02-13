@@ -9,12 +9,12 @@ const options = {
 };
 
 //Including the kopokopo module
-var k2 = require("/home/k2-engineering-01/Desktop/repos/k2_connect_nodejs/index")(options);
-var StkService = k2.StkService;
-var Webhooks = k2.Webhooks;
+var K2 = require("/home/k2-engineering-01/Desktop/repos/k2_connect_nodejs/index")(options);
+var StkService = K2.StkService;
+var Webhooks = K2.Webhooks;
 
 //Put in another file and import when needed
-var tokens = k2.TokenService;
+var tokens = K2.TokenService;
 var token_details;
 
 tokens

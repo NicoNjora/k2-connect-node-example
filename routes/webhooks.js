@@ -7,9 +7,9 @@ const options = {
 };
 
 //Including the kopokopo module
-var k2 = require("/home/k2-engineering-01/Desktop/repos/k2_connect_nodejs/index")(options);
-var Webhooks = k2.Webhooks;
-var tokens = k2.TokenService;
+var K2 = require("/home/k2-engineering-01/Desktop/repos/k2_connect_nodejs/index")(options);
+var Webhooks = K2.Webhooks;
+var tokens = K2.TokenService;
 var buyGoodsResource;
 var customerResource;
 var reversalResource;

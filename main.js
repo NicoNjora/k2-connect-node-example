@@ -20,6 +20,8 @@ app.use(
     extended: true,
   })
 ) 
+app.use('/favicon.ico', express.static('/favicon.ico'));
+
 
 app.set('view engine', 'jade');
 
