@@ -83,7 +83,7 @@ router.post('/receive',function (req, res, next) {
       // This is where once the request is completed kopokopo will post the response
     call_back_url: 'http://localhost:8000/stk/requestresponse',
 
-    token_details: token_details
+    access_token: token_details.access_token
   }
   console.log(token_details)
 
@@ -91,7 +91,7 @@ router.post('/receive',function (req, res, next) {
   StkService
     .paymentRequest(stkOptions)
     .then(response => {
-      return res.render('stkrequest', {message: 'STK push request sent successfully payment request url is: ' + response})
+      return res.render('stkrequest', {message: 'STK push request sent successfully payment request url is: ' + response.headers['location'] })
     })
     .catch(error => {
       console.log(error)
@@ -102,7 +102,7 @@ router.post('/receive',function (req, res, next) {
 
 router.get('/status', function (req, res, next) {
   StkService
-      .paymentRequestStatus({token_details: token_details})
+      .paymentRequestStatus({ access_token: token_details.access_token })
       .then(response =>{
           return res.render('stkstatus', {message: 'STK status is: '+response})
       })

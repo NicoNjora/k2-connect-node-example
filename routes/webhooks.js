@@ -119,7 +119,7 @@ router.post('/subscribe', function (req, res, next) {
         event_type: req.body.event_type,
         url: req.body.url,
         webhook_secret: process.env.BUYGOODS_WEBHOOK_SECRET,
-        token_details: token_details
+        access_token: token_details.access_token
     }
 
     Webhooks

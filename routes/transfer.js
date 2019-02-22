@@ -33,7 +33,7 @@ router.post('/', function (req, res, next) {
         amount : req.body.amount,
         currency: 'KES',
         destination: req.body.destination,
-        token_details: token_details
+        access_token: token_details.access_token
       }
 
         // Send message and capture the response or error
@@ -54,7 +54,7 @@ router.post('/createsettlement', function (req, res, next) {
         bankRef: req.body.bankRef,
         bankBranchRef: req.body.bankBranchRef,
         accountNumber: req.body.accountNumber,
-        token_details: token_details
+        access_token: token_details.access_token
       }
 
         // Send message and capture the response or error
@@ -75,7 +75,7 @@ router.get('/createsettlement', function (req, res, next) {
 
 router.get('/status', function (req, res, next) {
     TransferService
-        .settlementStatus({ token_details: token_details })
+        .settlementStatus({ access_token: token_details.access_token })
         .then(response =>{
             return res.render('transferstatus', { message: 'Transfer status is: ' + response })
         })

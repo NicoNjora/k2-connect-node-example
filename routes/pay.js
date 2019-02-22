@@ -37,7 +37,7 @@ router.post('/', function (req, res, next) {
           notes: 'Salary payment for May 2018'
         },
         callback_url: 'https://your-call-bak.yourapplication.com/payment_result',
-        token_details: token_details
+        access_token: token_details.access_token
       }
 
       // Send message and capture the response or error
@@ -65,14 +65,14 @@ router.post('/recipients', function (req, res, next) {
         email: req.body.email,
         phone: req.body.phone,
         network: 'Safaricom',
-        token_details: token_details
+        access_token: token_details.access_token
     }
 
     // Send message and capture the response or error
     PayService
     .addPayRecipient(recipientOpts)
     .then(response => {
-        return res.render('payrecipient', { message: 'Pay recipients request sent successfully request url is: ' + response })
+        return res.render('payrecipient', { message: 'Pay recipients request sent successfully request url is: ' + response.headers['location'] })
     })
     .catch(error => {
         console.log(error)
@@ -82,7 +82,7 @@ router.post('/recipients', function (req, res, next) {
 
 router.get('/status', function (req, res, next) {
     PayService
-        .payStatus({ token_details: token_details })
+        .payStatus({ access_token: token_details.access_token })
         .then(response => {
             return res.render('paystatus', { message: 'Pay status is: ' + response })
         })
