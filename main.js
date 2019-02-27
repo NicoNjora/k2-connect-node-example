@@ -16,9 +16,9 @@ const transferRoutes = require('./routes/transfer')
 
 app.use(bodyParser.json())
 app.use(
-  bodyParser.urlencoded({
-    extended: true
-  })
+	bodyParser.urlencoded({
+		extended: true
+	})
 )
 app.use('/favicon.ico', express.static('/favicon.ico'))
 
@@ -32,22 +32,22 @@ app.use('/transfer', transferRoutes)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  const err = new Error('Not Found')
-  err.status = 404
-  next(err)
+	const err = new Error('Not Found')
+	err.status = 404
+	next(err)
 })
 
 // error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message
-  res.locals.error = req.app.get('env') === 'development' ? err : {}
+	// set locals, only providing error in development
+	res.locals.message = err.message
+	res.locals.error = req.app.get('env') === 'development' ? err : {}
 
-  // render the error page
-  res.status(err.status || 500)
-  res.render('error', { title: 'There was an error' })
+	// render the error page
+	res.status(err.status || 500)
+	res.render('error', { title: 'There was an error' })
 })
 
 app.listen(port, () => {
-  console.log(`App running on port ${port}.`)
+	console.log(`App running on port ${ port }.`)
 })
