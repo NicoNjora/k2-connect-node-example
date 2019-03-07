@@ -7,7 +7,7 @@ const options = {
 }
 
 // Including the kopokopo module
-var K2 = require('/home/k2-engineering-01/Desktop/repos/k2-connect-node/index')(options)
+var K2 = require('kopokopo-node')(options)
 var TransferService = K2.TransferService
 
 // Put in another file and import when needed
@@ -33,14 +33,14 @@ router.post('/', function (req, res, next) {
         amount : req.body.amount,
         currency: 'KES',
         destination: req.body.destination,
-        token_details: token_details
+        accessToken: token_details.access_token
       }
 
         // Send message and capture the response or error
     TransferService
         .settleFunds(transferOpts)
         .then(response => {
-            return res.render('transfer', { message: 'Transfer request sent successfully request url is: ' + response })
+            return res.render('transfer', { message: 'Transfer request sent successfully request url is: ' + response.location })
         })
         .catch(error => {
             console.log(error)
@@ -54,14 +54,14 @@ router.post('/createsettlement', function (req, res, next) {
         bankRef: req.body.bankRef,
         bankBranchRef: req.body.bankBranchRef,
         accountNumber: req.body.accountNumber,
-        token_details: token_details
+        accessToken: token_details.access_token
       }
 
         // Send message and capture the response or error
     TransferService
         .createSettlementAccount(settlementAccountOpts)
         .then(response => {
-            return res.render('createsettlement', { message: 'Settlemnet Account details request sent successfully request url is: ' + response })
+            return res.render('createsettlement', { message: 'Settlement Account details request sent successfully request url is: ' + response })
         })
         .catch(error => {
             console.log(error)
@@ -75,7 +75,7 @@ router.get('/createsettlement', function (req, res, next) {
 
 router.get('/status', function (req, res, next) {
     TransferService
-        .settlementStatus({ token_details: token_details })
+        .settlementStatus({ accessToken: token_details.access_token, location: 'my_location' })
         .then(response =>{
             return res.render('transferstatus', { message: 'Transfer status is: ' + response })
         })

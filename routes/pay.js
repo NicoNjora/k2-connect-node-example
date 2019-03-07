@@ -7,7 +7,7 @@ const options = {
 }
 
 // Including the kopokopo module
-var K2 = require('/home/k2-engineering-01/Desktop/repos/k2-connect-node/index')(options)
+var K2 = require('kopokopo-node')(options)
 var PayService = K2.PayService
 
 // Put in another file and import when needed
@@ -36,15 +36,15 @@ router.post('/', function (req, res, next) {
           customer_id: '8675309',
           notes: 'Salary payment for May 2018'
         },
-        callback_url: 'https://your-call-bak.yourapplication.com/payment_result',
-        token_details: token_details
+        callbackUrl: 'https://your-call-bak.yourapplication.com/payment_result',
+        accessToken: token_details.access_token
       }
 
       // Send message and capture the response or error
     PayService
     .sendPay(payOpts)
     .then(response => {
-        return res.render('pay', { message: 'Pay recipients request sent successfully request url is: ' + response })
+        return res.render('pay', { message: 'Pay request sent successfully request url is: ' + response })
     })
     .catch(error => {
         console.log(error)
@@ -65,7 +65,7 @@ router.post('/recipients', function (req, res, next) {
         email: req.body.email,
         phone: req.body.phone,
         network: 'Safaricom',
-        token_details: token_details
+        accessToken: token_details.access_token
     }
 
     // Send message and capture the response or error
@@ -82,7 +82,7 @@ router.post('/recipients', function (req, res, next) {
 
 router.get('/status', function (req, res, next) {
     PayService
-        .payStatus({ token_details: token_details })
+        .payStatus({ accessToken: token_details.access_token, location: 'my_location' })
         .then(response => {
             return res.render('paystatus', { message: 'Pay status is: ' + response })
         })

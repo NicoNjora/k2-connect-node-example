@@ -9,7 +9,7 @@ const options = {
 }
 
 // Including the kopokopo module
-var K2 = require('/home/k2-engineering-01/Desktop/repos/k2-connect-node/index')(options)
+var K2 = require('kopokopo-node')(options)
 var StkService = K2.StkService
 var Webhooks = K2.Webhooks
 
@@ -67,9 +67,9 @@ router.get('/result', function (req, res, next) {
 router.post('/receive',function (req, res, next) {
 
   var stkOptions = {
-    till_identifier: process.env.K2_TILL_NUMBER,
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
+    tillNumber: process.env.K2_TILL_NUMBER,
+    firstName: req.body.first_name,
+    lastName: req.body.last_name,
     phone: req.body.phone,
     email: req.body.email,
     amount: req.body.amount,
@@ -81,9 +81,9 @@ router.post('/receive',function (req, res, next) {
       notes: 'Payment for invoice 123456'
     },
       // This is where once the request is completed kopokopo will post the response
-    call_back_url: 'http://localhost:8000/stk/requestresponse',
+    callbackUrl: 'http://localhost:8000/stk/requestresponse',
 
-    token_details: token_details
+    accessToken: token_details.access_token
   }
   console.log(token_details)
 
@@ -102,7 +102,7 @@ router.post('/receive',function (req, res, next) {
 
 router.get('/status', function (req, res, next) {
   StkService
-      .paymentRequestStatus({token_details: token_details})
+      .paymentRequestStatus({accessToken: token_details.access_token, location: 'my_location'})
       .then(response =>{
           return res.render('stkstatus', {message: 'STK status is: '+response})
       })
