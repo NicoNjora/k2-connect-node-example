@@ -9,7 +9,7 @@ const options = {
 }
 
 // Including the kopokopo module
-var K2 = require('/home/k2-engineering-01/Desktop/repos/k2-connect-node/index')(options)
+var K2 = require('kopokopo-node')(options)
 var StkService = K2.StkService
 var Webhooks = K2.Webhooks
 
@@ -67,25 +67,26 @@ router.get('/result', function (req, res, next) {
 
 router.post('/receive', function (req, res, next) {
 
-	var stkOptions = {
-		tillNumber: process.env.K2_TILL_NUMBER,
-		firstName: req.body.first_name,
-		lastName: req.body.last_name,
-		phone: req.body.phone,
-		email: req.body.email,
-		amount: req.body.amount,
-		currency: 'KES',
-		// A maximum of 5 key value pairs
-		metadata: {
-			customer_id: '123456789',
-			reference: '123456',
-			notes: 'Payment for invoice 123456'
-		},
-		// This is where once the request is completed kopokopo will post the response
-		callbackUrl: 'http://localhost:8000/stk/requestresponse',
+  var stkOptions = {
+    tillNumber: process.env.K2_TILL_NUMBER,
+    firstName: req.body.first_name,
+    lastName: req.body.last_name,
+    phone: req.body.phone,
+    email: req.body.email,
+    amount: req.body.amount,
+    currency: 'KES',
+    // A maximum of 5 key value pairs
+    metadata: {
+      customer_id: '123456789',
+      reference: '123456',
+      notes: 'Payment for invoice 123456'
+    },
+      // This is where once the request is completed kopokopo will post the response
+    callbackUrl: 'http://localhost:8000/stk/requestresponse',
 
-		accessToken: token_details.access_token
-	}
+    accessToken: token_details.access_token
+  }
+  console.log(token_details)
 
 	// Send message and capture the response or error
 	StkService
@@ -101,15 +102,15 @@ router.post('/receive', function (req, res, next) {
 })
 
 router.get('/status', function (req, res, next) {
-	StkService
-		.paymentRequestStatus({ accessToken: token_details.access_token })
-		.then(response => {
-			return res.render('stkstatus', { message: 'STK status is: ' + response })
-		})
-		.catch(error => {
-			console.log(error)
-			return res.render('stkstatus', { message: 'Error: ' + error })
-		})
+  StkService
+      .paymentRequestStatus({accessToken: token_details.access_token, location: 'my_location'})
+      .then(response =>{
+          return res.render('stkstatus', {message: 'STK status is: '+response})
+      })
+      .catch(error => {
+          console.log(error)
+          return res.render('stkstatus', {message: 'Error: ' + error})
+      })
 })
 
 module.exports = router

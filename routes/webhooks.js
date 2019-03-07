@@ -7,7 +7,7 @@ const options = {
 }
 
 //Including the kopokopo module
-var K2 = require('/home/k2-engineering-01/Desktop/repos/k2-connect-node/index')(options)
+var K2 = require('kopokopo-node')(options)
 var Webhooks = K2.Webhooks
 var tokens = K2.TokenService
 var buyGoodsResource
@@ -118,12 +118,12 @@ router.get('/subscribe', function (req, res, next) {
 
 
 router.post('/subscribe', function (req, res, next) {
-	const subscribeOptions = {
-		eventType: req.body.event_type,
-		url: req.body.url,
-		webhookSecret: process.env.BUYGOODS_WEBHOOK_SECRET,
-		accessToken: token_details.access_token
-	}
+    const subscribeOptions = {
+        eventType: req.body.event_type,
+        url: req.body.url,
+        webhookSecret: process.env.BUYGOODS_WEBHOOK_SECRET,
+        accessToken: token_details.access_token
+    }
 
 	Webhooks
 		.subscribe(subscribeOptions)
