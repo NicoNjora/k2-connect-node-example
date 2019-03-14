@@ -40,7 +40,7 @@ router.post('/', function (req, res, next) {
     TransferService
         .settleFunds(transferOpts)
         .then(response => {
-            return res.render('transfer', { message: 'Transfer request sent successfully request url is: ' + response.location })
+            return res.render('transfer', { message: 'Transfer request sent successfully request url is: ' + response })
         })
         .catch(error => {
             console.log(error)

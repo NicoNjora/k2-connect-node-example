@@ -129,7 +129,7 @@ router.post('/subscribe', function (req, res, next) {
 		.subscribe(subscribeOptions)
 		.then(response => {
 			console.log(response)
-			return res.render('subscribe', { message: 'Subscribe successful resource id is: ' + response.resourceId })
+			return res.render('subscribe', { message: 'Subscribe successful resource id is: ' + response })
 		})
 		.catch(error => {
 			console.log(error)

@@ -72,7 +72,7 @@ router.post('/recipients', function (req, res, next) {
 	PayService
 		.addPayRecipient(recipientOpts)
 		.then(response => {
-			return res.render('payrecipient', { message: 'Pay recipients request sent successfully request url is: ' + response.headers['location'] })
+			return res.render('payrecipient', { message: 'Pay recipients request sent successfully request url is: ' + response })
 		})
 		.catch(error => {
 			console.log(error)

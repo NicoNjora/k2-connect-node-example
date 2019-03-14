@@ -92,7 +92,7 @@ router.post('/receive', function (req, res, next) {
 	StkService
 		.paymentRequest(stkOptions)
 		.then(response => {
-			return res.render('stkrequest', { message: 'STK push request sent successfully payment request url is: ' + response.headers['location'] })
+			return res.render('stkrequest', { message: 'STK push request sent successfully payment request url is: ' + response })
 		})
 		.catch(error => {
 			console.log(error)
