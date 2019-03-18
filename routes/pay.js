@@ -3,7 +3,8 @@ const router = express.Router()
 
 const options = {
 	clientId: process.env.K2_CLIENT_ID,
-	clientSecret: process.env.K2_CLIENT_SECRET
+    clientSecret: process.env.K2_CLIENT_SECRET,
+    baseUrl: process.env.K2_BASE_URL
 }
 
 // Including the kopokopo module

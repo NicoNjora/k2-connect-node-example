@@ -3,7 +3,8 @@ const router = express.Router()
 
 const options = {
 	clientId: process.env.K2_CLIENT_ID,
-	clientSecret: process.env.K2_CLIENT_SECRET
+    clientSecret: process.env.K2_CLIENT_SECRET,
+    baseUrl: 'https://9284bede-3488-4b2b-a1e8-d6e9f8d86aff.mock.pstmn.io'
 }
 
 // Including the kopokopo module
