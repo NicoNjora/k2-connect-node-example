@@ -5,8 +5,8 @@ var stkResource
 
 const options = {
 	clientId: process.env.K2_CLIENT_ID,
-    clientSecret: process.env.K2_CLIENT_SECRET,
-    baseUrl: process.env.K2_BASE_URL
+	clientSecret: process.env.K2_CLIENT_SECRET,
+	baseUrl: process.env.K2_BASE_URL
 }
 
 // Including the kopokopo module
@@ -51,12 +51,12 @@ router.get('/result', function (req, res, next) {
 
 	if (resource != null) {
 		res.render('stkresult', {
-			origination_time: resource.origination_time,
-			sender_msisdn: resource.sender_msisdn,
+			originationTime: resource.originationTime,
+			senderMsisdn: resource.senderMsisdn,
 			amount: resource.amount,
 			currency: resource.currency,
-			till_number: resource.till_number,
-			name: resource.sender_first_name,
+			tillNumber: resource.tillNumber,
+			name: resource.firstName + " " + resource.middleName + " " + resource.lastName,
 			status: resource.status,
 			system: resource.system
 		})
@@ -68,26 +68,26 @@ router.get('/result', function (req, res, next) {
 
 router.post('/receive', function (req, res, next) {
 
-  var stkOptions = {
-    tillNumber: process.env.K2_TILL_NUMBER,
-    firstName: req.body.first_name,
-    lastName: req.body.last_name,
-    phone: req.body.phone,
-    email: req.body.email,
-    amount: req.body.amount,
-    currency: 'KES',
-    // A maximum of 5 key value pairs
-    metadata: {
-      customer_id: '123456789',
-      reference: '123456',
-      notes: 'Payment for invoice 123456'
-    },
-      // This is where once the request is completed kopokopo will post the response
-    callbackUrl: 'http://localhost:8000/stk/requestresponse',
+	var stkOptions = {
+		tillNumber: process.env.K2_TILL_NUMBER,
+		firstName: req.body.first_name,
+		lastName: req.body.last_name,
+		phone: req.body.phone,
+		email: req.body.email,
+		amount: req.body.amount,
+		currency: 'KES',
+		// A maximum of 5 key value pairs
+		metadata: {
+			customer_id: '123456789',
+			reference: '123456',
+			notes: 'Payment for invoice 123456'
+		},
+		// This is where once the request is completed kopokopo will post the response
+		callbackUrl: 'http://localhost:8000/stk/requestresponse',
 
-    accessToken: token_details.access_token
-  }
-  console.log(token_details)
+		accessToken: token_details.access_token
+	}
+	console.log(token_details)
 
 	// Send message and capture the response or error
 	StkService
@@ -103,15 +103,15 @@ router.post('/receive', function (req, res, next) {
 })
 
 router.get('/status', function (req, res, next) {
-  StkService
-      .paymentRequestStatus({accessToken: token_details.access_token, location: 'my_location'})
-      .then(response =>{
-          return res.render('stkstatus', {message: 'STK status is: '+response})
-      })
-      .catch(error => {
-          console.log(error)
-          return res.render('stkstatus', {message: 'Error: ' + error})
-      })
+	StkService
+		.paymentRequestStatus({ accessToken: token_details.access_token, location: process.env.K2_BASE_URL + '/payment_status' })
+		.then(response => {
+			return res.render('stkstatus', { message: 'STK status is: ' + response })
+		})
+		.catch(error => {
+			console.log(error)
+			return res.render('stkstatus', { message: 'Error: ' + error })
+		})
 })
 
 module.exports = router

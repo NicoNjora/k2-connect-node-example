@@ -83,7 +83,7 @@ router.post('/recipients', function (req, res, next) {
 
 router.get('/status', function (req, res, next) {
     PayService
-        .payStatus({ accessToken: token_details.access_token, location: 'my_location' })
+        .payStatus({ accessToken: token_details.access_token, location:  process.env.K2_BASE_URL + '/pay_status' })
         .then(response => {
             return res.render('paystatus', { message: 'Pay status is: ' + response })
         })

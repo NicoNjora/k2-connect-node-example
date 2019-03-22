@@ -30,7 +30,7 @@ router.post('/', function (req, res, next) {
 	Webhooks
 		.webhookHandler(req, res)
 		.then(response => {
-			buyGoodsResource = response.event.resource
+			buyGoodsResource = response
 		})
 		.catch(error => {
 			console.log(error)
@@ -41,7 +41,7 @@ router.post('/customercreated', function (req, res, next) {
 	Webhooks
 		.webhookHandler(req, res)
 		.then(response => {
-			customerResource = response.event.resource
+			customerResource = response
 		})
 		.catch(error => {
 			console.log(error)
@@ -52,7 +52,7 @@ router.post('/transactionreversed', function (req, res, next) {
 	Webhooks
 		.webhookHandler(req, res)
 		.then(response => {
-			reversalResource = response.event.resource
+			reversalResource = response
 		})
 		.catch(error => {
 			console.log(error)
@@ -65,7 +65,7 @@ router.get('/customerresource', function (req, res, next) {
 	if (resource != null) {
 		res.render('customerresource', {
 			sender_msisdn: resource.msisdn,
-			name: resource.first_name
+			name: resource.firstName
 		})
 	} else {
 		console.log('Resource not yet created')
@@ -78,12 +78,12 @@ router.get('/reversalresource', function (req, res, next) {
 
 	if (resource != null) {
 		res.render('reversalresource', {
-			origination_time: resource.origination_time,
-			sender_msisdn: resource.sender_msisdn,
+			origination_time: resource.originationTime,
+			sender_msisdn: resource.senderMsisdn,
 			amount: resource.amount,
 			currency: resource.currency,
-			till_number: resource.till_number,
-			name: resource.sender_first_name,
+			till_number: resource.tillNumber,
+			name: resource.firstName + " " + resource.middleName + " " + resource.lastName,
 			status: resource.status,
 			system: resource.system
 		})
@@ -98,12 +98,12 @@ router.get('/resource', function (req, res, next) {
 
 	if (resource != null) {
 		res.render('resource', {
-			origination_time: resource.origination_time,
-			sender_msisdn: resource.sender_msisdn,
+			origination_time: resource.originationTime,
+			sender_msisdn: resource.senderMsisdn,
 			amount: resource.amount,
 			currency: resource.currency,
-			till_number: resource.till_number,
-			name: resource.sender_first_name,
+			till_number: resource.tillNumber,
+			name: resource.firstName + " " + resource.middleName + " " + resource.lastName,
 			status: resource.status,
 			system: resource.system
 		})
